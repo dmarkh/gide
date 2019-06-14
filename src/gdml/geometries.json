@@ -1,0 +1,6 @@
+{
+	"test": {
+		"desc": "Test geometry",
+		"file": "test.gdml.gz"
+	}
+}

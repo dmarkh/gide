@@ -1,0 +1,102 @@
+
+* {
+	font-family: 'web_serveroff', helvetica, sans-serif !important;
+	font-size: 100% !important;
+}
+
+html, body {
+	color: #000;
+	background-color: #CCC;
+	margin:  0 !important;
+	padding: 0 !important;
+	height: 100%;
+	width: 100%;
+	border: 0;
+}
+
+h1 {
+	font-size: 1.5em !important;
+}
+
+h1, h2, h3 {
+	font-weight: bold !important;
+}
+
+body :not(INPUT):not(TEXTAREA) {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.ui-title, canvas {
+	padding: 0 !important;
+	margin: 0 !important;
+	border: 0 !important;
+}
+
+.ui-header, .ui-footer {
+	height: 3.5em !important;
+	line-height: 3.5em !important;
+	text-align: center;
+}
+
+.ui-content {
+	position: absolute !important;
+	top:	3.5em !important;
+	left:	0 !important;
+	width: 100%;
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
+table tbody tr td, table thead tr th, table tfoot tr th {
+	text-align: center !important;
+	border-right: 1px dashed #CCC;
+}
+
+#shapes table tbody tr:hover {
+	background-color: #FFEEBB !important;
+}
+
+#shapes table tbody tr td:hover {
+	background-color: #FFD966 !important;
+}
+
+.ui-slider-track {
+	background-color: #000 !important;
+}
+
+
+#camera-popup input.ui-slider-input {
+	width: 55px !important;
+}
+
+#event_collection_nav {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	display: none;
+}
+
+#event_collection_prev {
+	display: inline-block;
+	margin-right: 10px;
+	font-weight: bold;
+}
+
+#event_collection_next {
+	display: inline-block;
+	margin-left: 10px;
+	font-weight: bold;
+}
+
+#event_collection_current {
+	display: inline-block;
+	font-weight: bold;
+	text-align: center;
+	border-radius: 5px;
+}
+
+

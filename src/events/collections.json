@@ -1,0 +1,9 @@
+{
+	"test": {
+		"desc": "test events",
+		"species": "unknown",
+		"energy": "unknown",
+		"year": "unknown",
+		"file": "test/events.list"
+	}
+}

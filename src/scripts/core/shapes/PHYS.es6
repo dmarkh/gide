@@ -1,0 +1,66 @@
+
+let PHYS = {};
+	PHYS.Geo = {};
+
+import { GeoBox } from './G3/GeoBox';
+import { GeoSphe } from './G3/GeoSphe';
+import { GeoCone } from './G3/GeoCone';
+import { GeoCons } from './G3/GeoCons';
+import { GeoEltu } from './G3/GeoEltu';
+import { GeoCyl } from './G3/GeoCyl';
+import { GeoPara } from './G3/GeoPara';
+import { GeoTube } from './G3/GeoTube';
+import { GeoTubs } from './G3/GeoTubs';
+import { GeoPcon } from './G3/GeoPcon';
+import { GeoPgon } from './G3/GeoPgon';
+import { GeoHype } from './G3/GeoHype';
+import { GeoCtub } from './G3/GeoCtub';
+import { GeoTrd1 } from './G3/GeoTrd1';
+import { GeoTrd2 } from './G3/GeoTrd2';
+import { GeoTrd3 } from './G3/GeoTrd3';
+import { GeoTrap } from './G3/GeoTrap';
+import { GeoGtra } from './G3/GeoGtra';
+import { GeoArb8 } from './TGeo/GeoArb8';
+import { GeoParaboloid } from './TGeo/GeoParaboloid';
+import { GeoTorus } from './TGeo/GeoTorus';
+import { GeoXtru } from './TGeo/GeoXtru';
+import { GeoSExtru } from './VecGeo/GeoSExtru';
+import { GeoEllipsoid } from './G4/GeoEllipsoid';
+import { GeoEllipticalCone } from './G4/GeoEllipticalCone';
+import { GeoTet } from './G4/GeoTet';
+import { GeoOrb } from './G4/GeoOrb';
+import { GeoTessellatedSolid } from './GDML/GeoTessellatedSolid';
+
+import { CSG } from './CSG/CSG';
+PHYS.CSG = CSG;
+
+PHYS.Geo.box  = GeoBox;
+PHYS.Geo.sphe = GeoSphe;
+PHYS.Geo.cone = GeoCone;
+PHYS.Geo.cons = GeoCons;
+PHYS.Geo.eltu = GeoEltu;
+PHYS.Geo.cyl  = GeoCyl;
+PHYS.Geo.para = GeoPara;
+PHYS.Geo.tube = GeoTube;
+PHYS.Geo.tubs = GeoTubs;
+PHYS.Geo.pcon = GeoPcon;
+PHYS.Geo.pgon = GeoPgon;
+PHYS.Geo.hype = GeoHype;
+PHYS.Geo.ctub = GeoCtub;
+PHYS.Geo.trd1 = GeoTrd1;
+PHYS.Geo.trd2 = GeoTrd2;
+PHYS.Geo.trd3 = GeoTrd3;
+PHYS.Geo.trap = GeoTrap;
+PHYS.Geo.gtra = GeoGtra;
+PHYS.Geo.arb8 = GeoArb8;
+PHYS.Geo.paraboloid = GeoParaboloid;
+PHYS.Geo.torus = GeoTorus;
+PHYS.Geo.xtru = GeoXtru;
+PHYS.Geo.sxtru = GeoSExtru;
+PHYS.Geo.ellipsoid = GeoEllipsoid;
+PHYS.Geo.elcone = GeoEllipticalCone;
+PHYS.Geo.tet = GeoTet;
+PHYS.Geo.orb = GeoOrb;
+PHYS.Geo.tessellated = GeoTessellatedSolid;
+
+export default PHYS;
