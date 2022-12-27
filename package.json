@@ -56,7 +56,7 @@
     "file-loader": "^0.11.2",
     "grunt": "latest",
     "js-logger": "latest",
-    "mathjs": "^5.10.0",
+    "mathjs": "^7.5.1",
     "pako": "^1.0.6",
     "postcss": "^6.0.9",
     "postcss-cssnext": "^3.0.2",
