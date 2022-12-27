@@ -14,7 +14,7 @@ class GeoEltu extends THREE.Geometry {
 
 class GeoEltuBuffer extends THREE.BufferGeometry {
 
-    constructor({ dx = 30, dy = 10, dz = 40, twist = false, numSegs = 12 }) {
+    constructor({ dx = 30, dy = 10, dz = 40, twist = false, numSegs = 24 }) {
         super();
         this.parameters = { dx, dy, dz, twist, numSegs };
         this.type = 'GeoEltuBuffer';

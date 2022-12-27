@@ -1,4 +1,8 @@
 {
+	"sphenix-tpc": {
+		"desc": "SPHENIX TPC GEOMETRY",
+		"file": "sPHENIX_TPC.gdml"
+	},
 	"test": {
 		"desc": "Test geometry",
 		"file": "test.gdml.gz"

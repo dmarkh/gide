@@ -263,6 +263,7 @@ export default class Events {
 			vec = new HEP.ThreeVector(0,0,0), hit;
 		if ( evt.HITS ) {
 			for ( let i in evt.HITS ) {
+				console.log('processing cuts for hit type: ' + i );
 				for ( let j in evt.HITS[i]) {
 					hit = evt.HITS[i][j];
 					if ( hit.e !== undefined ) {
@@ -548,6 +549,7 @@ export default class Events {
 		}
 		let meta = evt.META.HITS, ehits = evt.HITS;
 		for ( let i in ehits ) {
+			console.log('processing hits of type ' + i );
 			if ( !meta[i] ) {
 				console.log('HIT group "' + i + '" has no meta descriptor, skipping');
 				continue;
@@ -561,6 +563,9 @@ export default class Events {
 					break;
 				case 'BOX':
 					this.parse_hits_box( i, ehits[i], meta[i].options, meta[i] );
+					break;
+				case 'JET':
+					this.parse_hits_jet( i, ehits[i], meta[i].options, meta[i] );
 					break;
 				default:
 					break;
@@ -583,26 +588,23 @@ export default class Events {
 	}
 
 	create_hits_3d_array( three_node, hits, options, meta = false ) {
-
 		let combined_geometry = new THREE.Geometry(), h, geo;
-
 		for( let i = 0, ilen = hits.length; i < ilen; i++ ) {
 			h = hits[i];
-
-			if ( !this.check_hit_cuts( h ) ) { continue; }
-
-			if ( meta && meta.cuts && meta.cuts.e && meta.cuts.e.min && h.e < meta.cuts.e.min ) {
-				continue;
-			}
-			if ( meta && meta.cuts && meta.cuts.e && meta.cuts.e.max && h.e > meta.cuts.e.max ) {
-				continue;
-			}
+      if ( !this.check_hit_cuts( h ) ) { continue; }
+      if ( meta && meta.cuts && meta.cuts.e && meta.cuts.e.min && h.e < meta.cuts.e.min ) {
+        continue;
+      }
+      if ( meta && meta.cuts && meta.cuts.e && meta.cuts.e.max && h.e > meta.cuts.e.max ) {
+        continue;
+      }
 			geo = new PHYS.Geo.box({ dx: options.size, dy: options.size, dz: options.size });
-			geo.applyMatrix( new THREE.Matrix4().makeTranslation( h[0] * 10, h[1] * 10, h[2] * 10 ) );
+			geo.applyMatrix( new THREE.Matrix4().makeTranslation( ( h.x === undefined ? h[0] : h.x ) * 10, (h.y === undefined ? h[1] : h.y ) * 10, ( h.z === undefined ? h[2] : h.z ) * 10 ) );
 			combined_geometry.merge( geo );
 		}
-		three_node.add( new THREE.Mesh( combined_geometry,
-			new THREE.MeshBasicMaterial({ color: options.color, transparent: false, opacity: 1 }) ) );
+    three_node.add( new THREE.Mesh( combined_geometry,
+      new THREE.MeshBasicMaterial({ color: options.color, transparent: options.transparent === undefined ? false : true,
+        opacity: options.transparent === undefined ? 1 : options.transparent, side: THREE.DoubleSide }) ) );
 	}
 
 	parse_hits_projective( id, hits, options = this.hitTypes.PROJECTIVE, meta = false ) {
@@ -732,6 +734,20 @@ export default class Events {
 		}
 	}
 
+	parse_hits_jet( id, hits, options = this.hitTypes['JET'], meta = false ) {
+		let hitGroup = new THREE.Group();
+		this.hits.add( hitGroup );
+		if ( Array.isArray( hits ) ) {
+			this.create_hits_jet_array( hitGroup, hits, options, meta );
+		} else {
+			for( let i in hits ) {
+				let hitSubGroup = new THREE.Group();
+				hitGroup.add( hitSubGroup );
+				this.create_hits_jet_array( hitSubGroup, hits[i], options, meta );
+			}
+		}
+	}
+
 	// hit color processing
 	hitColorFunc( colors, ratio ) {
 		if ( Array.isArray( colors ) && colors.length >= 2 ) {
@@ -781,6 +797,66 @@ export default class Events {
 			}
 			geo = new PHYS.Geo.box({ dx: d.x, dy: d.y, dz: d.z });
 			geo.applyMatrix( new THREE.Matrix4().makeTranslation( h.x * 10, h.y * 10, h.z * 10 ) );
+
+			// face colors: array or single color
+			let color = this.hitColorFunc( options.color, ratio );
+			for ( let fc = 0; fc < geo.faces.length; fc++ ) {
+				let face  = geo.faces[ fc ];
+				face.color.setRGB( color.r, color.g, color.b );
+			}
+
+			combined_geometry.merge( geo );
+		}
+
+		three_node.add(
+			new THREE.Mesh( combined_geometry,
+				new THREE.MeshBasicMaterial({ color:  0xffffff, transparent: options.transparent ? true : false,
+					opacity: options.transparent || 1, side: THREE.BackSide, vertexColors: THREE.FaceColors })
+			)
+		);
+		three_node.add(
+			new THREE.Mesh( combined_geometry,
+				new THREE.MeshBasicMaterial({ color:  0xffffff, transparent: options.transparent ? true : false,
+					opacity: options.transparent || 1, side: THREE.FrontSide, vertexColors: THREE.FaceColors })
+			)
+		);
+	}
+
+	create_hits_jet_array( three_node, hits, options, meta = false ) {
+
+		let combined_geometry = new THREE.Geometry(),
+			h = false, geo, ratio;
+
+		if ( h && meta && options && options.escaleminmax ) {
+			// TODO
+		}
+
+		for( let i = 0, ilen = hits.length; i < ilen; i++ ) {
+			h = hits[i];
+
+			console.log( 'meta', meta );
+			console.log('jet hit', h );
+
+			let l = meta.options.rmin + ( meta.options.rmax - meta.options.rmin ) 
+						* ( ( h.e - meta.options.emin ) / ( meta.options.emax - meta.options.emin ) ) / 2.,
+				rmax = 2. * l * Math.tan( h.R / 2. );
+
+			geo = new PHYS.Geo.cone({ dz: l * 10., rmin1: 0, rmax1: 0, rmin2: rmax * 10., rmax2: rmax * 10., twist: false, numSegs: 24 });
+
+			geo.applyMatrix( new THREE.Matrix4().makeTranslation( 0, 0, l * 10. ) );
+			geo.applyMatrix( new THREE.Matrix4().makeRotationX( Math.PI ) );
+
+			// eye, target, up
+			geo.applyMatrix( new THREE.Matrix4().lookAt(
+					new THREE.Vector3(0, 0, 0),
+					new THREE.Vector3(
+						l * 2. * 10. * Math.cos(h.phi),
+						l * 2. * 10. * Math.sin(h.phi),
+						l * 2. * 10. / Math.tan( 2.0 * Math.atan( Math.exp(-h.eta) ) )
+					),
+					new THREE.Vector3(0, 0, 1)
+				)
+			);
 
 			// face colors: array or single color
 			let color = this.hitColorFunc( options.color, ratio );

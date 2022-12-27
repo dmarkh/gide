@@ -14,7 +14,7 @@ class GeoTubs extends THREE.Geometry {
 
 class GeoTubsBuffer extends THREE.BufferGeometry {
 
-    constructor({ dz = 50, rmin = 20, rmax = 40, phi1 = 0, phi2 = 270, twist = false, numSegs = 12 }) {
+    constructor({ dz = 50, rmin = 20, rmax = 40, phi1 = 0, phi2 = 270, twist = false, numSegs = 24 }) {
         super();
         this.parameters = { dz, rmin, rmax, phi1, phi2, twist, numSegs };
         this.type = 'GeoTubsBuffer';

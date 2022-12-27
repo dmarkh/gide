@@ -14,7 +14,7 @@ class GeoCyl extends THREE.Geometry {
 
 class GeoCylBuffer extends THREE.BufferGeometry {
 
-    constructor({ rmax = 20, dz = 40, twist = false, numSegs = 12 }) {
+    constructor({ rmax = 20, dz = 40, twist = false, numSegs = 24 }) {
         super();
         this.parameters = { rmax, dz, twist, numSegs };
         this.type = 'GeoCylBuffer';

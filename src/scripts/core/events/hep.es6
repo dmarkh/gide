@@ -52,6 +52,12 @@ HEP.ThreeVector.prototype = {
 		this.mX2 = parseFloat(Y);
 		this.mX3 = parseFloat(Z);
 	},
+	setRadiusEtaPhi( radius, eta, phi ) {
+		let apt = Math.abs(radius);
+		this.mX1 = apt * Math.cos(phi);
+		this.mX2 = apt * Math.sin(phi);
+		this.mX3 = apt / Math.tan( 2.0 * Math.atan( Math.exp(-eta) ) );
+	},
 
 	// Getters
 	x : function() { 

@@ -1,0 +1,52 @@
+{
+    "EVENT": {
+      "runid": 1,
+      "evtid": 1,
+      "time": 0,
+      "type": "Collision",
+      "s_nn": 0,
+      "B": 3.0,
+      "pv": [0,0,0]
+    },
+    "META": {
+      "HITS": {
+        "TPC": {
+  	  	  "type": "BOX",
+	  	  	  "options": {
+		      	  "dx": 5,
+    			    "dy": 5,
+			        "dz": 5,
+      			  "axis": "z",
+			        "scaleminmax": false,
+			        "scalecut": 0.0,
+      			  "color": 16777215,
+			        "transparent": 0.5
+			      }
+        },
+				"TPCJET": {
+          "type": "JET",
+          "options": {
+          	"rmin": 0,
+          	"rmax": 78,
+						"emin": 0,
+						"emax": 30,
+						"escaleminmax": true,
+          	"color": 16777215,
+          	"transparent": 0.9
+          }
+        }
+      }
+    },
+	"HITS": {
+		"TPC": [
+		 { "x": 1, "y": 1, "z": 1, "e": 1 },
+		 { "x": 50, "y": 30, "z": 10, "e": 1 },
+		 { "x": 50, "y": 30, "z": -10, "e": 1 }
+		]
+	},
+	"JETS": {
+		"TPCJET": [
+			{ "eta": -0.509192, "phi": -2.69678, "R": 0.4, "e": 22.4346 }
+		]
+	}
+}

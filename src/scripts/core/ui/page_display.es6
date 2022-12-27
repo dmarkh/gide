@@ -977,6 +977,8 @@ export default class UIPageDisplay {
 					await this.display.load_event_as_file( file_list );
 				}
 				this.display.add_event();
+				await this.display.add_detector();
+				this.display.render();
 			} else {
 				this.display.remove_event();
 			}
@@ -1055,7 +1057,6 @@ export default class UIPageDisplay {
 			$('#tree-popup').popup('close');
 			if ( this.display.GDMLimporter.updateParameters( params ) ) {
 				await this.display.add_detector();
-				this.display.reset_camera();
 				this.display.render();
 				$('#volume_counter').text('volumes: ' + this.display.GDMLimporter.counters.placedvolumes );
 			}
@@ -1328,10 +1329,15 @@ export default class UIPageDisplay {
 				await this.display.load_gdml_as_file( par.file ); // load and parse
 				$('#tree-WorldRef').text( this.display.GDMLimporter.startVolumeRef );
 				await this.display.add_detector();
+				this.display.render();
 			}
+
 			if ( par.event ) {
 				await this.display.load_event_as_file( par.event ); // load and parse
 				this.display.add_event();
+				await this.display.add_detector();
+				this.display.render();
+
 			} else if ( par.collection ) {
 				await this.display.set_event_collection( par.collection );
 				if ( this.display.event_collection ) {

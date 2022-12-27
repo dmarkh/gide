@@ -14,7 +14,7 @@ class GeoCone extends THREE.Geometry {
 
 class GeoConeBuffer extends THREE.BufferGeometry {
 
-    constructor({ dz = 50, rmin1 = 10, rmax1 = 20, rmin2 = 50, rmax2 = 60, twist = false, numSegs = 12 }) {
+    constructor({ dz = 50, rmin1 = 10, rmax1 = 20, rmin2 = 50, rmax2 = 60, twist = false, numSegs = 24 }) {
         super();
         this.parameters = { dz, rmin1, rmax1, rmin2, rmax2, twist, numSegs };
         this.type = 'GeoConeBuffer';
